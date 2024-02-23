@@ -3,3 +3,5 @@ numpy
 pandas
 pydeck
 streamlit
+snowflake-snowpark-python >= 1.12.1
+sqlalchemy
