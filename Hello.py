@@ -24,14 +24,14 @@ def run():
         page_icon="👋",
     )
 
-    st.write("# Welcome to Streamlit! 👋")
+    st.write("# Datasets Playground! 👋")
 
     st.sidebar.success("Select a demo above.")
 
  
-    conn = st.connection("snowflake")
-    conn.cursor().execute('use database FREE_DATASET_GZTSZAS2KH9')
-    query = conn.query("""SELECT i.cik, i.company_name, r.period_start_date, r.period_end_date, r.measure_description, TO_NUMERIC(r.value) AS value
+    
+    st.markdown("""***Example***\n
+    SELECT i.cik, i.company_name, r.period_start_date, r.period_end_date, r.measure_description, TO_NUMERIC(r.value) AS value
     FROM cybersyn.sec_cik_index AS i
     JOIN cybersyn.sec_report_attributes AS r ON (r.cik = i.cik)
     WHERE i.sic_code_description = 'AIR TRANSPORTATION, SCHEDULED'
@@ -40,8 +40,13 @@ def run():
       AND r.covered_qtrs = 4
       AND r.metadata IS NULL
       AND r.measure_description IN ('Total operating revenues', 'Total operating revenue');""")
-    st.dataframe(query)
-
+    
+    
+    conn = st.connection("snowflake")
+    command = st.text_area('Input SQL')
+    if command:
+        query = conn.query(command)
+        st.dataframe(query)
 
 if __name__ == "__main__":
     run()
