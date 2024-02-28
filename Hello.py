@@ -20,14 +20,11 @@ LOGGER = get_logger(__name__)
 
 def run():
     st.set_page_config(
-        page_title="Hello",
+        page_title="Datasets",
         page_icon="👋",
     )
 
     st.write("# Datasets Playground! 👋")
-
-    st.sidebar.success("Select a demo above.")
-
  
     
     st.markdown("""***Example***\n
